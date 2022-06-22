@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class TaskmanJdbcDAO implements DAO<Task>{
@@ -43,7 +44,7 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         Task task = new Task();
 
         try {
-            task.setId(rs.getInt("id"));
+            task.setId(rs.getString("id"));
             task.setName(rs.getString("name"));
             task.setContext(rs.getString("context"));
             task.setDate(rs.getString("date"));
@@ -68,8 +69,10 @@ public class TaskmanJdbcDAO implements DAO<Task>{
 
     @Override
     public void create(Task task) {
-        String sql = "INSERT INTO taskman(name, context, date) VALUES('"
-                + task.getName() + "', '" + task.getContext() + "', '"
+        String sql = "INSERT INTO Taskman(id, name, context, date) VALUES('"
+                + task.getId() + "', '"
+                + task.getName() + "', '"
+                + task.getContext() + "', '"
                 + task.getDate() + "')";
         try {
             statement.execute(sql);
@@ -79,18 +82,38 @@ public class TaskmanJdbcDAO implements DAO<Task>{
     }
 
     @Override
-    public Optional get(int id) {
-        return Optional.empty();
+    public Task get(String id) {
+        Task task = null;
+        String sql = "SELECT * FROM Taskman WHERE id='" + id + "'";
+        try {
+            task = colMapper(statement.executeQuery(sql)).get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return task;
     }
 
     @Override
-    public void update(Task task, int id) {
-
+    public void update(Task task, String id)
+    {
+        String sql = "UPDATE Taskman SET (name, context) " +
+                "= ('" + task.getName() + "', '" + task.getContext() + "') " +
+                "WHERE id = '" + id + "'";
+        try {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void delete(int id) {
-
+    public void delete(String id) {
+        String sql = "DELETE FROM Taskman WHERE id='" + id + "'";
+        try {
+            statement.execute(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

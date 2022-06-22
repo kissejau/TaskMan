@@ -11,9 +11,9 @@ public interface DAO<T> {
 
     void create(T t);
 
-    Optional<T> get(int id);
+    Task get(String id);
 
-    void update(T t, int id);
+    void update(T t, String id);
 
-    void delete(int id);
+    void delete(String id);
 }

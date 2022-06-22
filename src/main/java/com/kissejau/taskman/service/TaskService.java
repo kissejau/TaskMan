@@ -4,11 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kissejau.taskman.dao.TaskmanJdbcDAO;
 import com.kissejau.taskman.entity.Task;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 @Component
@@ -51,9 +48,23 @@ public class TaskService {
         return out;
     }
 
+    public boolean deleteTask(String json)
+    {
+        Map<String, String> map = jsonToMap(json);
+        if (map == null
+        || map.isEmpty()
+        || !map.containsKey("id"))
+            return false;
+        else{
+            db.delete(map.get("id"));
+            return true;
+        }
+    }
+
     public boolean addTask(String json)
     {
         Map<String, String> map = jsonToMap(json);
+
         if (map == null
                 || map.isEmpty()
                 || !map.containsKey("name")
@@ -63,6 +74,29 @@ public class TaskService {
         else
         {
             db.create(new Task(map.get("name"), map.get("context")));
+            return true;
+        }
+
+    }
+
+    public boolean update(String json)
+    {
+        Map<String, String> map = jsonToMap(json);
+        Task task;
+
+        if (map == null
+        || map.isEmpty()
+        || !map.containsKey("id")
+        || !(map.containsKey("name") || map.containsKey("context")))
+            return false;
+        else
+        {
+            task = db.get(map.get("id"));
+            if (map.containsKey("name"))
+                task.setName(map.get("name"));
+            if (map.containsKey("context"))
+                task.setContext(map.get("context"));
+            db.update(task, map.get("id"));
             return true;
         }
     }

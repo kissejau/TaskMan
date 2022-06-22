@@ -3,16 +3,18 @@ package com.kissejau.taskman.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 public class Task {
 
-    private int id;
+    private String id;
     private String name;
     private String context;
     private String date;
 
 
     public Task(){
+        id = UUID.randomUUID().toString();
         date =  LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() + " " + LocalDate.now().toString();
     }
 
@@ -31,10 +33,10 @@ public class Task {
         this.context = context;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(String id) { this.id = id; }
 
     public void setDate(String date) { this.date = date; }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
