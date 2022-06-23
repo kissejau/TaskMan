@@ -1,7 +1,6 @@
 package com.kissejau.taskman.dao;
 
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.SQLException;
 import java.sql.Statement;
 

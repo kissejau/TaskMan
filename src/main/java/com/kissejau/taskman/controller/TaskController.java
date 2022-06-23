@@ -1,15 +1,13 @@
 package com.kissejau.taskman.controller;
 
-
 import com.kissejau.taskman.entity.Task;
 import com.kissejau.taskman.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.List;
 
+@CrossOrigin
 @RestController
 public class TaskController {
 
@@ -17,7 +15,7 @@ public class TaskController {
     TaskService service;
 
     @GetMapping
-    public String readTasks()
+    public List<Task> readTasks()
     {
         return service.readTasks();
     }
@@ -26,6 +24,12 @@ public class TaskController {
     public void deleteTask(@RequestBody String json)
     {
         service.deleteTask(json);
+    }
+
+    @GetMapping("/add")
+    public String addTask()
+    {
+        return "add_task";
     }
     @PostMapping("/add")
     public void addTask(@RequestBody String json) {

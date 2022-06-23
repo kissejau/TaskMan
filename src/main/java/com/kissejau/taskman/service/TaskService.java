@@ -6,6 +6,7 @@ import com.kissejau.taskman.dao.TaskmanJdbcDAO;
 import com.kissejau.taskman.entity.Task;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -28,24 +29,10 @@ public class TaskService {
         }
         return map;
     }
-//    public void syncTasks(Cookie[] cookies) // sync tasks with cookies (if tasks - empty)
-//    {
-//        Map<String, String> map;
-//        if (tasks.isEmpty())
-//            for (Cookie c : cookies)
-//            {
-//                tasks.add(new Task(c.getName(), c.getValue()));
-//            }
-//    }
 
-    public String readTasks()
+    public List<Task> readTasks()
     {
-        String out = "";
-        for (Task task : db.list())
-        {
-            out += task.toString();
-        }
-        return out;
+        return db.list();
     }
 
     public boolean deleteTask(String json)

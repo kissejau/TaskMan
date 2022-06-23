@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class TaskmanJdbcDAO implements DAO<Task>{
 
@@ -62,8 +60,10 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         try {
             tasks = colMapper(statement.executeQuery(sql));
         } catch (SQLException e) {
+            log.info("Tasks weren`t defined");
             throw new RuntimeException(e);
         }
+        log.info("");
         return tasks;
     }
 
@@ -77,6 +77,7 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         try {
             statement.execute(sql);
         } catch (SQLException e) {
+            log.info("Task wasn`t created");
             throw new RuntimeException(e);
         }
     }
@@ -88,6 +89,7 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         try {
             task = colMapper(statement.executeQuery(sql)).get(0);
         } catch (SQLException e) {
+            log.info("Task wasn`t got");
             throw new RuntimeException(e);
         }
         return task;
@@ -102,6 +104,7 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         try {
             statement.executeUpdate(sql);
         } catch (SQLException e) {
+            log.info("Task wasn`t update");
             throw new RuntimeException(e);
         }
     }
@@ -112,6 +115,7 @@ public class TaskmanJdbcDAO implements DAO<Task>{
         try {
             statement.execute(sql);
         } catch (SQLException e) {
+            log.info("Task wasnt`t update");
             throw new RuntimeException(e);
         }
     }
