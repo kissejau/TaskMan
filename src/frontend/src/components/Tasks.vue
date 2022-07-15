@@ -14,7 +14,7 @@
           <td>{{ task.name }}</td>
           <td>{{ task.context }}</td>
           <td>{{ task.date }}</td>
-          <td><button v-on:click="deleteTask(task.id)" :class="'btn-delete-' + task.id">Delete</button></td>
+          <td><button v-on:click="deleteTask(task.id)" class="btn-delete">Delete</button></td>
         </tr>
       </tbody>
     </table>
@@ -26,7 +26,7 @@
 
 import TasksService from "@/services/TasksService";
 export default {
-  name: "TasksList",
+  name: "TasksBoard",
   data() {
     return {
       tasks: []
