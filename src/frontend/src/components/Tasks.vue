@@ -8,6 +8,7 @@
         <th>task context</th>
         <th>task date</th>
         <th>delete</th>
+        <th>edit</th>
       </thead>
       <tbody>
         <tr :class="task.id" v-for="task in tasks" v-bind:key="task.id">
@@ -15,6 +16,7 @@
           <td>{{ task.context }}</td>
           <td>{{ task.date }}</td>
           <td><button v-on:click="deleteTask(task.id)" class="btn-delete">Delete</button></td>
+          <td><button v-on:click="editTask(task.id)" class="btn-edit">Edit</button></td>
         </tr>
       </tbody>
     </table>
@@ -25,6 +27,7 @@
 <script>
 
 import TasksService from "@/services/TasksService";
+
 export default {
   name: "TasksBoard",
   data() {
@@ -39,11 +42,12 @@ export default {
       })
     },
     deleteTask(id) {
-      var elements = document.getElementsByClassName(id)
-      while (elements.length > 0)
-        elements[0].parentNode.removeChild(elements[0]);
       TasksService.deleteTask(id);
+    },
+    editTask(id) {
+      TasksService.editTask(id);
     }
+
   },
   created() {
     this.getTasks();
@@ -56,6 +60,11 @@ export default {
 .btn-delete {
   background: #DD2750;
   border: 1px solid #C43352;
+}
+
+.btn-edit {
+  background: #f8f540;
+  border: 1px solid #72740b;
 }
 
 table,
