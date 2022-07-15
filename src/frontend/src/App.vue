@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Tasks/>
+    <Tasks />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import Tasks from "@/components/Tasks";
 export default {
   name: 'App',
   components: {
-    Tasks
+    Tasks,
   }
 }
 </script>
@@ -18,10 +18,6 @@ export default {
 <style>
 #app {
   font-family: Hack, monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: left;
-  color: darkred;
-  margin-top: 60px;
+  color: black;
 }
 </style>

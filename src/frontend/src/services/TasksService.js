@@ -6,6 +6,10 @@ class TasksService {
   getTasks() {
     return axios.get(TASKS_API_URL);
   }
+  deleteTask(id) {
+    const body = { data: { 'id': id } }
+    axios.delete(TASKS_API_URL + "delete", body);
+  }
 }
 
 export default new TasksService();
